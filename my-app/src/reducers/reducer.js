@@ -5,9 +5,18 @@ export const initialState = {
   }
 
 export const reducer = (state, action) => {
-    return {
-        
-    };
-  default:
-      return state;
+    switch(action.type) {
+        case 'ADD_NEW_TODO_ITEM':
+      const newItem = {
+        item: action.payload,
+        completed: false,
+        id: new Date()
+      };
+      return {
+        ...state,
+        item: [...state.item, newItem]
+      };
+            default:
+                return state;
+    }
 }
