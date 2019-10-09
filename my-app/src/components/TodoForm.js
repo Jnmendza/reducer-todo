@@ -1,16 +1,28 @@
-import React from 'react';
-// import Reducer from '../reducers/Reducer';
+import React, {useState, useReducer} from 'react';
 
-const TodoForm = () => {
-
+export default function TodoForm ({state, dispatch}) {
+    const [newTodo, setNewTodo] = useState('');
     
-        return (
-            <form >
-                <input className="input" type="text" />
-                <button className="add-btn" onClick={() => dispatchEvent({ type: 'ADD_NEW_TODO_ITEM'})}>Add Task</button>
-            </form>
-        );
+    function handleChange(e) {
+        setNewTodo(e.target.value);
     }
 
+    function submitTodo (e)  {
+        e.preventDefault();
+        setNewTodo('');
+        dispatch({type: 'ADD_ITEM', payload: newTodo})
+    }
 
-export default TodoForm 
+    return (
+            <form onSubmit={submitTodo}>
+            <input
+                type="text"
+                value={state.name}
+                name="name"
+                onChange={handleChange}
+            />
+            <button>Add</button>
+        </form>
+        
+    );
+}
